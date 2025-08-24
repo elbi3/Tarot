@@ -103,11 +103,11 @@ function TarotDeck() {
     };
 
 }
-let myDeck = new TarotDeck();
+// let myDeck = new TarotDeck();
 
 // let fulllDeck = myDeck.sortDeck();
 // console.log("sorted deck? ",fulllDeck);
 
-let shuffledDeck = myDeck.shuffle();
-console.log("shuffled deck: ", shuffledDeck);
-console.log("length: ", shuffledDeck.length);
+// let shuffledDeck = myDeck.shuffle();
+// console.log("shuffled deck: ", shuffledDeck);
+// console.log("length: ", shuffledDeck.length);
