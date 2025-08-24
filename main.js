@@ -42,7 +42,7 @@ function TarotDeck() {
         let arcana = this.coins.concat(this.wands, this.swords, this.cups);
         this.minorArcana = arcana;
     };
-//method2
+//method2 //22 unique cards
     this.createMajorArcana = function(){
         const majorArcana = ["Fool", "Magician","High Priestess","Empress","Emperor","Hierophant","Lovers","Chariot","Strength","Hermit","Wheel of Fortune","Justice","Hanged Man","Death","Temperance","Devil","Tower","Star","Moon","Sun","Judgement","World"];
         function createMajorCards(){
@@ -54,22 +54,60 @@ function TarotDeck() {
         };
         this.majorArcana = createMajorCards();
     };
-//method3
-    this.shuffle = function(){
+//method3 //56 unique cards
+    this.createShuffleMap = function() {
+        let randNums = [];
+        function getRandnums(max){
+            return Math.floor(Math.random() * max);
+        }
+        function index52Arr() {
+            for(let i = 0; i < 78; i++){
+                let num = getRandnums(78);
+                let breaker = false;
+                for(let j = 0; j <= randNums.length; j++) {
+                    if(randNums[j] === num) {
+                        breaker = true;
+                        i--;
+                    } 
+                }
+                if(!breaker) {
+                    randNums.push(num);
+                }
+            }
+        
+            return randNums;
+        };
+        
+        return index52Arr();
+    };
+//method4
+    this.sortDeck = function() {
+        //this can be called instead of shuffle to fill the deck - if one wanted a sorted deck
         this.createMinorArcana();
         this.createMajorArcana();
-        //if create methods have not been called, call them here?
-        //possibly refactor so that shuffle calls other methods as well so only one method is needed for card instantiation inside the deck 
-        //combines major and minor arcana into a full deck
         let fullDeck = this.majorArcana.concat(this.minorArcana);
-        console.log("fullDeck? ", fullDeck);
-        //shuffles cards
-    }
+        return fullDeck;
+    };
+//method5
+    this.shuffle = function(){
+        //calls sortt method so that major and minor arcana are created
+        let sortedDeck = this.sortDeck();
+        //creates an array of randomized numbers to map cards onto for shuffling mechanism
+        let randomArr = this.createShuffleMap();
+        //shuffles deck and returns it:
+        let shuffledDeck = randomArr.map((e) => {
+            return sortedDeck[e];
+        });
+        return shuffledDeck;
+
+    };
 
 }
 let myDeck = new TarotDeck();
-// myDeck.createMinorArcana();
-// myDeck.createMajorArcana();
-myDeck.shuffle();
-// console.log("arcana: ", myDeck.coins);
-// console.log("major arcana? ", myDeck.majorArcana);
+
+// let fulllDeck = myDeck.sortDeck();
+// console.log("sorted deck? ",fulllDeck);
+
+let shuffledDeck = myDeck.shuffle();
+console.log("shuffled deck: ", shuffledDeck);
+console.log("length: ", shuffledDeck.length);
