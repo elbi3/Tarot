@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-ƒ<head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarot Card Reading</title>
@@ -113,38 +113,61 @@
     }
 
         let counter = 0;
-        let slot1 = document.getElementById("card1");
-        let slot2 = document.getElementById("card2");
-        let slot3 = document.getElementById("card3");
-        let slot4 = document.getElementById("card4");
-        
+
         function startReading(){
-            let slot1 = document.getElementById("card1");
-        let slot2 = document.getElementById("card2");
-        let slot3 = document.getElementById("card3");
-        let slot4 = document.getElementById("card4");
-            let hiddenButton = document.getElementById("hidden-button").hidden = true;
-            document.getElementById("card4").hidden = true;
-            let myDeck = new TarotDeck();
-            let shuffledDeck = myDeck.shuffle();
-            console.log("shuffled deck: ", shuffledDeck);
-            console.log("length: ", shuffledDeck.length);
-            counter++;
+            let myDeck = new TarotDeck(); //instantiate a new deck and its cards
+            let shuffledDeck = myDeck.shuffle(); //shuffle deck and store returned "shuffled" deck object 
+            counter++; //start the counter
             console.log(`Let's do a reading! counter: ${counter}`);
-            slot1.innerHTML = `${shuffledDeck[0].rank} of ${shuffledDeck[0].suit} `;
-            slot2.innerHTML = `${shuffledDeck[1].rank} of ${shuffledDeck[1].suit}`;
-            slot3.innerHTML = `${shuffledDeck[2].rank} of ${shuffledDeck[2].suit}`;
-            document.getElementById("card4").hidden = false;
-            slot4.innerHTML = `${shuffledDeck[3].rank} of ${shuffledDeck[3].suit}`;
+
+            document.getElementById("card1").innerHTML = `${shuffledDeck[0].rank} of ${shuffledDeck[0].suit} `;
+            document.getElementById("card2").innerHTML = `${shuffledDeck[1].rank} of ${shuffledDeck[1].suit}`;
+            document.getElementById("card3").innerHTML = `${shuffledDeck[2].rank} of ${shuffledDeck[2].suit}`;
+            document.getElementById("hidden-button").hidden = false;
+            document.getElementById("card4").innerHTML = `${shuffledDeck[3].rank} of ${shuffledDeck[3].suit}`;
         }
         
-        function fourthCardReveal(){
-            slot4.removeAttribute("hidden");
+        function ask4thCard(){
+            document.getElementById("form-section").removeAttribute("hidden");
         };
+
+        function submitSign(event){
+            event.preventDefault();
+            let myInput = document.astrologyForm.elements[0];
+            console.log("astro form value: ", myInput.value);
+            let validatedInput = inputValidation(myInput.value);
+            console.log("validated input: ", validatedInput);
+            if(!validatedInput){
+                document.getElementById("try-again").innerHTML = "Please try again!";
+                return;
+                console.log("Enter one of the traditional astrological signs: aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces");
+            } else {
+                document.getElementById("userInputSign").innerHTML = `I see you are ${myInput.value} ✨`;
+                let fourthCardh2 = document.getElementById("msg");
+                fourthCardh2.removeAttribute("hidden");
+                fourthCardh2.innerHTML = `Fourth card for ${validatedInput} is:`;
+                showFourthCard();
+            }
+        };
+        function inputValidation(input){
+            let signs = ["aries","taurus","gemini","cancer","leo","virgo","libra","scorpio",
+                            "sagittarius","capricorn","aquarius","pisces"];
+            input.toString().toLowerCase();
+            console.log("input to string and lower case: ", input);
+            let result = signs.find(e => e === input);
+            return result;
+        };
+
+        function showFourthCard(){
+            document.getElementById("card4").removeAttribute("hidden");
+        };
+
     </script>
 </head>
 <body>
-    <header>Play Tarot</header>
+    <header>
+        <h1>Play Tarot</h1>
+    </header>
     <main>
         <button onclick="startReading()">Get a Reading</button>
         <section class="reading">
@@ -152,11 +175,26 @@
             <div id="card2"></div>
             <div id="card3"></div>
         </section>
-        <button id="hidden-button" onclick="fourthCardReveal()" hidden>Get a Fourth Card?</button>
+        <button id="hidden-button" onclick="ask4thCard()" hidden>Get a Fourth Card?</button>
+        <section class="astro-form" id="form-section" hidden>
+            <form name="astrologyForm">
+                <div>
+                    <label for="astro-input">Enter your sign:</label>
+                    <input name="astro-input" type="text" placeholder="virgo">
+                </div>
+                <div>
+                    <p id="try-again"></p>
+                    <p>Signs are: aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces</p>
+                </div>
+                <button type="submit" onclick="submitSign(event)">Draw a 4th card for your sign</button>
+            </form>
+            <p id="userInputSign"></p>
+        </section>
         <section>
+            <h2 id="msg" hidden></h2>
             <div id="card4" hidden></div>
         </section>
     </main>
-    <footer></footer>
+    <footer>~~~</footer>
 </body>
 </html>
