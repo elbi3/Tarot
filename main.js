@@ -24,9 +24,9 @@ function TarotDeck() {
     this.cups = [];
     this.majorArcana = [];
     this.minorArcana = [];
-//method1
+//method1 //create minor arcana
     this.createMinorArcana = function(){
-        //minor arcana:
+        //minor arcana: //56 unique cards
         const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Page","Knight","Queen","King"];
         function constructSuit(suit){
             let oneSuit = ranks.map(rank => {
@@ -42,8 +42,9 @@ function TarotDeck() {
         let arcana = this.coins.concat(this.wands, this.swords, this.cups);
         this.minorArcana = arcana;
     };
-//method2 //22 unique cards
+//method2 //create major arcana
     this.createMajorArcana = function(){
+        //major arcana: 22 unique cards
         const majorArcana = ["Fool", "Magician","High Priestess","Empress","Emperor","Hierophant","Lovers","Chariot","Strength","Hermit","Wheel of Fortune","Justice","Hanged Man","Death","Temperance","Devil","Tower","Star","Moon","Sun","Judgement","World"];
         function createMajorCards(){
             let majors = majorArcana.map((name, i) => {
@@ -54,7 +55,7 @@ function TarotDeck() {
         };
         this.majorArcana = createMajorCards();
     };
-//method3 //56 unique cards
+//method3 //create random number array for map function
     this.createShuffleMap = function() {
         let randNums = [];
         function getRandnums(max){
@@ -80,7 +81,7 @@ function TarotDeck() {
         
         return index52Arr();
     };
-//method4
+//method4: calls both card creation functions, concatenate those returned arrays, returns complete & sorted deck
     this.sortDeck = function() {
         //this can be called instead of shuffle to fill the deck - if one wanted a sorted deck
         this.createMinorArcana();
@@ -88,7 +89,7 @@ function TarotDeck() {
         let fullDeck = this.majorArcana.concat(this.minorArcana);
         return fullDeck;
     };
-//method5
+//method5: calls methods 3 and 4 to create and return shuffled deck 
     this.shuffle = function(){
         //calls sortt method so that major and minor arcana are created
         let sortedDeck = this.sortDeck();
@@ -99,15 +100,13 @@ function TarotDeck() {
             return sortedDeck[e];
         });
         return shuffledDeck;
-
     };
-
 }
-// let myDeck = new TarotDeck();
+let myDeck = new TarotDeck();
 
-// let fulllDeck = myDeck.sortDeck();
-// console.log("sorted deck? ",fulllDeck);
+let fulllDeck = myDeck.sortDeck();
+console.log("sorted deck? ",fulllDeck);
 
-// let shuffledDeck = myDeck.shuffle();
-// console.log("shuffled deck: ", shuffledDeck);
-// console.log("length: ", shuffledDeck.length);
+let shuffledDeck = myDeck.shuffle();
+console.log("shuffled deck: ", shuffledDeck);
+console.log("length: ", shuffledDeck.length);

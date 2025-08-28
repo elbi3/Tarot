@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+ƒ<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarot Card Reading</title>
@@ -26,114 +26,119 @@
         Object.setPrototypeOf(TarotCard.prototype, Card.prototype); 
 
         function TarotDeck() {
-    this.coins = [];
-    this.wands = [];
-    this.swords = [];
-    this.cups = [];
-    this.majorArcana = [];
-    this.minorArcana = [];
-//method1
-    this.createMinorArcana = function(){
-        //minor arcana:
-        const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Page","Knight","Queen","King"];
-        function constructSuit(suit){
-            let oneSuit = ranks.map(rank => {
-                let card = new TarotCard(suit, rank);
-                return card;
-            });
-            return oneSuit;
-        };
-        this.coins = constructSuit("coins");
-        this.wands = constructSuit("wands");
-        this.swords = constructSuit("swords");
-        this.cups = constructSuit("cups");
-        let arcana = this.coins.concat(this.wands, this.swords, this.cups);
-        this.minorArcana = arcana;
-    };
-//method2 //22 unique cards
-    this.createMajorArcana = function(){
-        const majorArcana = ["Fool", "Magician","High Priestess","Empress","Emperor","Hierophant","Lovers","Chariot","Strength","Hermit","Wheel of Fortune","Justice","Hanged Man","Death","Temperance","Devil","Tower","Star","Moon","Sun","Judgement","World"];
-        function createMajorCards(){
-            let majors = majorArcana.map((name, i) => {
-                let card = new TarotCard(name, i);
-                return card;
-            });
-            return majors;
-        };
-        this.majorArcana = createMajorCards();
-    };
-//method3 //56 unique cards
-    this.createShuffleMap = function() {
-        let randNums = [];
-        function getRandnums(max){
-            return Math.floor(Math.random() * max);
-        }
-        function index52Arr() {
-            for(let i = 0; i < 78; i++){
-                let num = getRandnums(78);
-                let breaker = false;
-                for(let j = 0; j <= randNums.length; j++) {
-                    if(randNums[j] === num) {
-                        breaker = true;
-                        i--;
-                    } 
-                }
-                if(!breaker) {
-                    randNums.push(num);
-                }
-            }
-        
-            return randNums;
-        };
-        
-        return index52Arr();
-    };
-//method4
-    this.sortDeck = function() {
-        //this can be called instead of shuffle to fill the deck - if one wanted a sorted deck
-        this.createMinorArcana();
-        this.createMajorArcana();
-        let fullDeck = this.majorArcana.concat(this.minorArcana);
-        return fullDeck;
-    };
-//method5
-    this.shuffle = function(){
-        //calls sortt method so that major and minor arcana are created
-        let sortedDeck = this.sortDeck();
-        //creates an array of randomized numbers to map cards onto for shuffling mechanism
-        let randomArr = this.createShuffleMap();
-        //shuffles deck and returns it:
-        let shuffledDeck = randomArr.map((e) => {
-            return sortedDeck[e];
-        });
-        return shuffledDeck;
+            this.coins = [];
+            this.wands = [];
+            this.swords = [];
+            this.cups = [];
+            this.majorArcana = [];
+            this.minorArcana = [];
+        //method1 //create minor arcana
+            this.createMinorArcana = function(){
+                //minor arcana: 56 unique cards
+                const ranks = ["Ace","2","3","4","5","6","7","8","9","10","Page","Knight","Queen","King"];
+                function constructSuit(suit){
+                    let oneSuit = ranks.map(rank => {
+                        let card = new TarotCard(suit, rank);
+                        return card;
+                    });
+                    return oneSuit;
+                };
+                this.coins = constructSuit("coins");
+                this.wands = constructSuit("wands");
+                this.swords = constructSuit("swords");
+                this.cups = constructSuit("cups");
+                let arcana = this.coins.concat(this.wands, this.swords, this.cups);
+                this.minorArcana = arcana;
+            };
+            //method2 //create major arcana
+                this.createMajorArcana = function(){
+                    //major arcana: 22 unique cards
+                    const majorArcana = ["Fool", "Magician","High Priestess","Empress","Emperor","Hierophant","Lovers","Chariot","Strength","Hermit","Wheel of Fortune","Justice","Hanged Man","Death","Temperance","Devil","Tower","Star","Moon","Sun","Judgement","World"];
+                    function createMajorCards(){
+                        let majors = majorArcana.map((name, i) => {
+                            let card = new TarotCard(name, i);
+                            return card;
+                        });
+                        return majors;
+                    };
+                    this.majorArcana = createMajorCards();
+                };
+            //method3 //create random number array for map function
+                this.createShuffleMap = function() {
+                    let randNums = [];
+                    function getRandnums(max){
+                        return Math.floor(Math.random() * max);
+                    }
+                    function index52Arr() {
+                        for(let i = 0; i < 78; i++){
+                            let num = getRandnums(78);
+                            let breaker = false;
+                            for(let j = 0; j <= randNums.length; j++) {
+                                if(randNums[j] === num) {
+                                    breaker = true;
+                                    i--;
+                                } 
+                            }
+                            if(!breaker) {
+                                randNums.push(num);
+                            }
+                        }
+                    
+                        return randNums;
+                    };
+                    
+                    return index52Arr();
+                };
+            //method4: calls both card creation functions, concatenate those returned arrays, returns complete & sorted deck
+                this.sortDeck = function() {
+                    //this can be called instead of shuffle to fill the deck - if one wanted a sorted deck
+                    this.createMinorArcana();
+                    this.createMajorArcana();
+                    let fullDeck = this.majorArcana.concat(this.minorArcana);
+                    return fullDeck;
+                };
+            //method5: calls methods 3 and 4 to create and return shuffled deck 
+                this.shuffle = function(){
+                    //calls sortt method so that major and minor arcana are created
+                    let sortedDeck = this.sortDeck();
+                    //creates an array of randomized numbers to map cards onto for shuffling mechanism
+                    let randomArr = this.createShuffleMap();
+                    //shuffles deck and returns it:
+                    let shuffledDeck = randomArr.map((e) => {
+                        return sortedDeck[e];
+                    });
+                    return shuffledDeck;
 
-    };
-
-}
+                };
+    }
 
         let counter = 0;
+        let slot1 = document.getElementById("card1");
+        let slot2 = document.getElementById("card2");
+        let slot3 = document.getElementById("card3");
+        let slot4 = document.getElementById("card4");
+        
         function startReading(){
+            let slot1 = document.getElementById("card1");
+        let slot2 = document.getElementById("card2");
+        let slot3 = document.getElementById("card3");
+        let slot4 = document.getElementById("card4");
+            let hiddenButton = document.getElementById("hidden-button").hidden = true;
+            document.getElementById("card4").hidden = true;
             let myDeck = new TarotDeck();
             let shuffledDeck = myDeck.shuffle();
             console.log("shuffled deck: ", shuffledDeck);
             console.log("length: ", shuffledDeck.length);
             counter++;
             console.log(`Let's do a reading! counter: ${counter}`);
-            let slot1 = document.getElementById("card1");
-            let slot2 = document.getElementById("card2");
-            let slot3 = document.getElementById("card3");
-            let hiddenButton = document.getElementById("hidden-button");
             slot1.innerHTML = `${shuffledDeck[0].rank} of ${shuffledDeck[0].suit} `;
             slot2.innerHTML = `${shuffledDeck[1].rank} of ${shuffledDeck[1].suit}`;
             slot3.innerHTML = `${shuffledDeck[2].rank} of ${shuffledDeck[2].suit}`;
-            hiddenButton.removeAttribute("hidden");
-            let slot4 = document.getElementById("card4");
+            document.getElementById("card4").hidden = false;
             slot4.innerHTML = `${shuffledDeck[3].rank} of ${shuffledDeck[3].suit}`;
         }
         
         function fourthCardReveal(){
-            let slot4 = document.getElementById("card4");
             slot4.removeAttribute("hidden");
         };
     </script>
