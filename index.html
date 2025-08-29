@@ -43,10 +43,10 @@
                     });
                     return oneSuit;
                 };
-                this.coins = constructSuit("coins");
-                this.wands = constructSuit("wands");
-                this.swords = constructSuit("swords");
-                this.cups = constructSuit("cups");
+                this.coins = constructSuit("coins 🤑");
+                this.wands = constructSuit("wands 🪄");
+                this.swords = constructSuit("swords 🗡️");
+                this.cups = constructSuit("cups 🥤");
                 let arcana = this.coins.concat(this.wands, this.swords, this.cups);
                 this.minorArcana = arcana;
             };
@@ -56,7 +56,7 @@
                     const majorArcana = ["Fool", "Magician","High Priestess","Empress","Emperor","Hierophant","Lovers","Chariot","Strength","Hermit","Wheel of Fortune","Justice","Hanged Man","Death","Temperance","Devil","Tower","Star","Moon","Sun","Judgement","World"];
                     function createMajorCards(){
                         let majors = majorArcana.map((name, i) => {
-                            let card = new TarotCard(name, i);
+                            let card = new TarotCard(name, "*");
                             return card;
                         });
                         return majors;
@@ -119,12 +119,17 @@
             let shuffledDeck = myDeck.shuffle(); //shuffle deck and store returned "shuffled" deck object 
             counter++; //start the counter
             console.log(`Let's do a reading! counter: ${counter}`);
-
-            document.getElementById("card1").innerHTML = `${shuffledDeck[0].rank} of ${shuffledDeck[0].suit} `;
-            document.getElementById("card2").innerHTML = `${shuffledDeck[1].rank} of ${shuffledDeck[1].suit}`;
-            document.getElementById("card3").innerHTML = `${shuffledDeck[2].rank} of ${shuffledDeck[2].suit}`;
+            
+            document.getElementById("card1a").innerHTML = `${shuffledDeck[0].rank}`;
+            document.getElementById("card1b").innerHTML = ` ${shuffledDeck[0].suit}`;
+            document.getElementById("card2a").innerHTML = `${shuffledDeck[1].rank}`;
+            document.getElementById("card2b").innerHTML = ` ${shuffledDeck[1].suit}`;
+            document.getElementById("card3a").innerHTML = `${shuffledDeck[2].rank}`;
+            document.getElementById("card3b").innerHTML = ` ${shuffledDeck[2].suit}`;
+            document.getElementById("card4a").innerHTML = `${shuffledDeck[3].rank}`;
+            document.getElementById("card4b").innerHTML = ` ${shuffledDeck[3].suit}`;
             document.getElementById("hidden-button").hidden = false;
-            document.getElementById("card4").innerHTML = `${shuffledDeck[3].rank} of ${shuffledDeck[3].suit}`;
+
         }
         
         function ask4thCard(){
@@ -139,8 +144,8 @@
             console.log("validated input: ", validatedInput);
             if(!validatedInput){
                 document.getElementById("try-again").innerHTML = "Please try again!";
-                return;
                 console.log("Enter one of the traditional astrological signs: aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces");
+                return;
             } else {
                 document.getElementById("userInputSign").innerHTML = `I see you are ${myInput.value} ✨`;
                 let fourthCardh2 = document.getElementById("msg");
@@ -159,7 +164,7 @@
         };
 
         function showFourthCard(){
-            document.getElementById("card4").removeAttribute("hidden");
+            document.getElementById("fourth-card-section").removeAttribute("hidden");
         };
 
     </script>
@@ -171,28 +176,54 @@
     <main>
         <button onclick="startReading()">Get a Reading</button>
         <section class="reading">
-            <div id="card1"></div>
-            <div id="card2"></div>
-            <div id="card3"></div>
+            <div class="tarot-card-border">
+                <div class="tarot-card-face">
+                    <div id="card1a"></div>
+                    <div id="card1b"></div>
+                </div>
+            </div>
+            <div class="tarot-card-border">
+                <div class="tarot-card-face">
+                    <div id="card2a"></div>
+                    <div id="card2b"></div>
+                </div>
+            </div>
+            <div class="tarot-card-border">
+                <div class="tarot-card-face">
+                    <div id="card3a"></div>
+                    <div id="card3b"></div>
+                </div>
+            </div>
         </section>
         <button id="hidden-button" onclick="ask4thCard()" hidden>Get a Fourth Card?</button>
+        <p id="userInputSign"></p>
         <section class="astro-form" id="form-section" hidden>
-            <form name="astrologyForm">
-                <div>
-                    <label for="astro-input">Enter your sign:</label>
-                    <input name="astro-input" type="text" placeholder="virgo">
+            <form name="astrologyForm" class="astrologyForm-inner">
+                <p id="try-again"></p>
+                <div class="left">
+                        <label for="astro-input">Enter your sign:</label>
+                        <input name="astro-input" type="text" placeholder="virgo">
+
+                    <button type="submit" onclick="submitSign(event)">Draw a 4th card for your sign!</button>
                 </div>
-                <div>
-                    <p id="try-again"></p>
+                <div class="right">
                     <p>Signs are: aries, taurus, gemini, cancer, leo, virgo, libra, scorpio, sagittarius, capricorn, aquarius, pisces</p>
                 </div>
-                <button type="submit" onclick="submitSign(event)">Draw a 4th card for your sign</button>
             </form>
-            <p id="userInputSign"></p>
         </section>
-        <section>
-            <h2 id="msg" hidden></h2>
-            <div id="card4" hidden></div>
+        <section class="bottom-container">
+            <div  id="fourth-card-section"  hidden>
+
+                <h2 id="msg" ></h2>
+    
+                <div class="tarot-card-border">
+                    <div class="tarot-card-face">
+                        <div id="card4a"></div>
+                        <div id="card4b"></div>
+                    </div>
+    
+                </div>
+            </div>
         </section>
     </main>
     <footer>~~~</footer>
