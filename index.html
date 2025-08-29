@@ -157,9 +157,9 @@
         function inputValidation(input){
             let signs = ["aries","taurus","gemini","cancer","leo","virgo","libra","scorpio",
                             "sagittarius","capricorn","aquarius","pisces"];
-            input.toString().toLowerCase();
-            console.log("input to string and lower case: ", input);
-            let result = signs.find(e => e === input);
+            let myInput = input.toLowerCase();
+            console.log("input to string and lower case: ", myInput);
+            let result = signs.find(e => e === myInput);
             return result;
         };
 
