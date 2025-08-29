@@ -27,12 +27,6 @@ html:focus-within {
   scroll-behavior: smooth;
 }
 
-body {
-  min-height: 100vh;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
-}
-
 a:not([class]) {
   text-decoration-skip-ink: auto;
 }
@@ -68,9 +62,25 @@ select {
 /* end reset */
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: gainsboro;
     color: midnightblue;
     font-family: sans-serif;
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+h1{
+  display: flex;
+  justify-content: center;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 1rem;
 }
 
 button {
@@ -78,6 +88,8 @@ button {
     border: 1px solid darkslateblue;
     border-radius: .25rem;
     color: inherit;
+    max-width: 20ch;
+    padding: .3rem;
 }
 button:hover{
     border: 1px solid midnightblue;
@@ -86,4 +98,63 @@ button:hover{
 }
 button:active{
     background-color: purple;
+}
+.reading {
+  background-color: purple;
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem;
+  gap: .5rem;
+  width: 100vw;
+}
+
+.tarot-card-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: darkslateblue;
+  border: 1px solid darkslateblue;
+  color: gainsboro;
+  font-weight: bold;
+  border-radius: .25rem;
+  width: 15ch;
+  min-height: 20ch;
+  box-shadow: 0 0 0 5px gainsboro inset;
+}
+.tarot-card-border {
+  padding: .2rem;
+}
+.fourth-card-section {
+  display: flex;
+  flex-direction: column;
+}
+.astrologyForm-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.astro-form {
+  padding: .5rem;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.right {
+  max-width: 40%;
+}
+.card-section-bottom {
+  display: flex;
+  flex-direction: column;
+}
+.bottom-container {
+  background-color: purple;
+  color: gainsboro;
+  width: 100vw;
+  padding-block: 1rem;
+  display: flex;
+  justify-content: center;
 }
